@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <title>Регистрация</title>
+</head>
+<body>
+<div id="alert" class="alert alert-danger" role="alert">
+    Такой пользователь уже зарегистрирован
+</div>
+<div id="alert2" class="alert alert-success"  role="alert">
+    Электронная почта подтверждена! Авторизуйтесь.
+</div>
+    <div class="background">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+    </div>
+    <main>
+        <div id="login" class="login">
+            <div class="logo">
+                <img class="logo_img" src="./zentas.png">
+                <h1 class="logot">Войдите с Зентас ID</h1>
+            </div>
+            <div class="box_input">
+                <div class="mn_box  mn_box_active">
+                    <h1 class="mnb_title">Почта</h1>
+                </div>
+                <div class="mn_box mn_box_non" >
+                    <h1 class="mnb_title">Телефон</h1>
+
+                </div>
+            </div>
+            <div class="box_input">
+                <input type="email" id="email_login" placeholder="Email" class="login_input">
+            </div>
+            <button onclick="login_check()" class="loginbtn">Войти</button>
+            <button onclick="resize_registration()" class="createbtn">Создать ID</button>
+            <a href="" class="resetpass">Забыли пароль?</a>
+        </div>
+        <div class="register" id="register">
+            <div class="r_header">
+                <div class="rh_left">
+                    <img src="./heart%201.png" alt="" class="h_heart">
+                    <div class="rh_box">
+                        <h1 class="h_title">Привет, давай создадим Зентас ID</h1>
+                        <h1 onclick="resize_login()" class="h_title_m">Уже есть аккаунт?</h1>
+                    </div>
+                </div>
+                <img src="./mini_logo.png" alt="" class="m_logoz">
+
+            </div>
+            <div class="r_main">
+                <div class="rm_line">
+                    <div class="input_box">
+                        <input type="text" class="inpur_form_r" id="r_name" placeholder="Имя">
+                        <div class="line_box"></div>
+                    </div>
+                    <div class="input_box">
+                        <input type="text" class="inpur_form_r" id="r_surname" placeholder="Фамилия">
+                        <div class="line_box"></div>
+                    </div>
+                </div>
+                <div class="rm_line">
+                    <div class="input_box">
+                        <input type="text" class="inpur_form_r" id="r_middleName" placeholder="Отчество">
+                        <div class="line_box"></div>
+                    </div>
+                    <div class="input_box">
+                        <input type="text" class="inpur_form_r" id="r_date" placeholder="Дата рождения"  onfocus="(this.type='date')" onblur="(this.type='text')">
+                        <div class="line_box"></div>
+                    </div>
+
+                </div>
+                <div class="rm_line">
+                    <div class="input_box">
+                        <input type="email" class="inpur_form_r" id="r_email" placeholder="Электронный адрес">
+                        <div class="line_box"></div>
+                    </div>
+                    <div class="input_box">
+                        <input type="text" class="inpur_form_r" id="r_phone" placeholder="Номер телефона">
+                        <div class="line_box"></div>
+                    </div>
+                </div>
+                <div class="rm_line">
+                    <div class="input_box">
+                        <input type="password" class="inpur_form_r" id="r_password" placeholder="Пароль">
+                        <div class="line_box"></div>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" class="inpur_form_r" id="r_passwordR" placeholder="Подтвердите пароль">
+                        <div class="line_box"></div>
+                    </div>
+                </div>
+                <div class="privacy_lin">
+                    <input id="agree" type="checkbox" class="agree" id="agree">
+                    <label for="agree" class="agreel">Я согласен с условиями <span class="privacy_link">обработки персональных данных</span></label>
+                </div>
+                <div class="btnr_box">
+                    <button class="reg" onclick="registerCheck()">Зарегистироваться</button>
+
+                </div>
+            </div>
+        </div>
+        <div id="verefym" class="verefy">
+            <div class="h_verefy">
+                <img src="./mini_logo.png" alt="" class="mini_logoverla">
+                <h1 class="mw_title">Подтвердите электронный адрес</h1>
+            </div>
+            <h1 class="verefy_mail">Письмо было отправленно на <br> <span id="adress" class="wm_adress"></span></h1>
+        </div>
+        <div class="m_code" id="m_code">
+            <div class="logo">
+                <img class="logo_img" src="./zentas.png">
+                <h1 class="logot">Войдите с Зентас ID</h1>
+            </div>
+            <div class="box_input box_input2">
+                <input type="email" id="code_login" placeholder="Код с почты" class="login_input">
+            </div>
+            <button onclick="sendCode()" class="loginbtn loginbtn2">Войти</button>
+        </div>
+        <div class="loggined" id="loggined">
+            <img src="./user.png" alt="" class="u_img">
+            <h1 class="u_title">Здравствуйте, <span id="u_name" class="u_name">name</span></h1>
+        </div>
+    </main>
+    <footer>
+        <div class="sovet">
+            <h1 class="s_title">Используйте режим инкогнито на чужом устройстве</h1>
+        </div>
+        <div class="links">
+            <h1 class="s_title">Справка и поддержка</h1>
+            <h1 class="s_title">© 2024, Зентас</h1>
+
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="./translate.js"></script>
+    <script src="./registration.js"></script>
+    <script src="./login.js"></script>
+    <script src="./verefy.js"></script>
+    <script src="./cookie.js"></script>
+    <script src="./function.js"></script>
+</body>
+</html>

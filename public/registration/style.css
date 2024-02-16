@@ -1,0 +1,487 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital@0;1&display=swap');
+@font-face {
+    font-family: 'YandexSans';
+    src: url('./YandexSansDisplay-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('./YandexSansText-Medium.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('./YandexSansText-Bold.ttf');
+    font-weight: 800;
+    font-style: normal;
+}
+body{
+    position: fixed;
+    background: #1a1e29;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.background{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.shape1{
+    position: absolute;
+    background: #0E33B7;
+    width: 27.7%;
+    height: 51.25%;
+    border-radius: 100%;
+    filter: blur(230px);
+    bottom: -20%;
+    left: -10%;
+
+}
+.shape2{
+    position: absolute;
+    background: #0E33B7;
+    width: 21.62%;
+    height: 40%;
+    border-radius: 100%;
+    filter: blur(230px);
+    top: -20%;
+    right: -10%;
+
+}
+main {
+    position: fixed;
+    width: 26.89%; /* (981 / 1480) * 100 */
+    height: 56.13%; /* (655 / 800) * 100 */
+    max-width: 400px;
+    max-height: 450px;
+    background: linear-gradient(180deg, rgba(38, 45, 67, 0.9) 0%, rgba(44, 67, 130, 0.9) 100%); /* Установка прозрачности на 70% */
+    border-radius: 36px;
+    padding: 10px;
+    /*box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.74); !* Увеличение эффекта тени в 2 раза *!*/
+    transition: width 0.5s ease, height 0.5s ease; /* Добавляем переход для width и height */
+
+}
+
+
+footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.s_title{
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 1.9vh;
+    margin-left: 10px;
+}
+.links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+.login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+}
+.logo{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.logo_img{
+    width: 40%;
+}
+.logot{
+    color: white;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 150%;
+}
+.box_input{
+    width: 80%;
+    border: 1px solid #2b91ff;
+    border-radius: 18px;
+    height: 10%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.mn_box{
+    cursor: pointer;
+    width: 48%;
+    margin-left: 0.8%;
+    margin-right: 0.8%;
+
+    height: 90%;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.mn_box_non:hover{
+    background: rgba(139, 139, 139, 0.2);
+
+}
+.mn_box_active{
+    cursor: default;
+    background: rgba(139, 139, 139, 0.36);
+
+}
+.mnb_title{
+    position: relative;
+    top: 10%;
+    color: white;
+    font-family: YandexSans;
+    font-weight: 600;
+    font-size: 100%;
+}
+.login_input{
+
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    color: white;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 110%;
+    padding-left: 10px;
+
+}
+.login_input:focus {
+    border: none; /* Убираем границу */
+    outline: none; /* Убираем обводку */
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.loginbtn{
+    cursor: pointer;
+    width: 80%;
+    height: 10%;
+    border: 1px solid #06f;
+    background: #06f;
+    border-radius: 18px;
+
+
+    color: white;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 110%;
+
+}
+.loginbtn:hover{
+    background: #1875ff;
+
+}
+
+.createbtn{
+    cursor: pointer;
+    width: 80%;
+    height: 10%;
+    border: 1px solid #06f;
+    border-radius: 18px;
+    background: none;
+
+
+    color: white;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 110%;
+}
+/* Отступ текста от левого края */
+.createbtn:hover{
+    background: rgba(139, 139, 139, 0.36);
+
+}
+.resetpass{
+    color: #06f;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 90%;
+    text-decoration: none;
+}
+
+.register   {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.r_header{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.rh_left{
+    width: 70%;
+    margin-left: 35px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+.rh_box{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 0px;
+
+}
+.h_title{
+    position: relative;
+    color: white;
+    top: 5%;
+    font-family: YandexSans;
+    font-weight: 800;
+    font-size: 200%;
+
+}
+.h_title_m{
+    position: relative;
+    cursor: pointer;
+    color: #489ffc;
+    top: -5%;
+    font-family: YandexSans;
+    font-weight: 800;
+    font-size: 100%;
+}
+
+.r_main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3%;
+}
+.rm_line{
+    width: 75%;
+    height: 10%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.input_box{
+    position: relative;
+    width: 49%;
+    height: 100%;
+}
+.line_box{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    background: #2b91ff;
+    height: 1px;
+}
+.inpur_form_r{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    padding-left: 3px;
+    color: white;
+    font-family: "Open Sans", sans;
+    font-weight: 400;
+    font-size: 120%;
+}
+.inpur_form_r:focus {
+    border: none; /* Убираем границу */
+    outline: none; /* Убираем обводку */
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.privacy_lin{
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+
+.agree[type='checkbox']:checked {
+    background-color: #2b91ff;
+}
+.agree[type='checkbox']:checked:after {
+    color: white;
+
+}
+.agree[type='checkbox']{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    appearance:none;
+    border-radius:30%;
+    border: 1px solid #2b91ff;
+    box-shadow: none;
+    font-size: 1em;
+
+}
+.agreel{
+    font-family: "Open Sans";
+    color: white;
+    font-weight: 400;
+}
+.privacy_link{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.privacy_link:hover{
+    color: #2b91ff;
+}
+.btnr_box{
+    width: 75%;
+    height: 7%;
+    display: flex;
+    justify-content: start;
+}
+.reg{
+    width: 30%;
+    height: 100%;
+    background: #06f;
+    color: white;
+    font-family: "Open Sans";
+    font-weight: 600;
+    font-size: 100%;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+
+}
+.reg:hover{
+    background: #3586ff;
+
+}
+.alert{
+    display: none;
+    position: fixed;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.m_logoz{
+    margin-right: 35px;
+}
+.verefy{
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+.h_verefy{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+.mw_title{
+    font-size: 150%;
+    font-family: YandexSans;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+}
+.verefy_mail{
+    font-size: 125%;
+    font-family: YandexSans;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+}
+.wm_adress{
+    color: #0066ff;
+}
+.mini_logoverla{
+    width: 40px;
+}
+.m_code{
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+.box_input2{
+    height: 15%;
+}
+.loginbtn2{
+    height: 15%;
+}
+.loggined{
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+.u_title{
+    font-size: 150%;
+    font-family: YandexSans;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+}
+.u_name{
+    color: #0066FF;
+}
