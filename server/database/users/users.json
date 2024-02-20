@@ -1,0 +1,17 @@
+[
+    {
+        "UserId": "dhxgpzltlrjpjqn2",
+        "DislayId": "96396635",
+        "firstName": "Алексей",
+        "lastName": "Антипьев",
+        "middleName": "Константинович",
+        "phone": "+79523235502",
+        "email": "antalkon789@mail.ru",
+        "password": "$2b$10$b.6/0Iz2/y5Udg753pRBVO9q.u2PIBQ355qqXc3.0V0fF6wTaHGAa",
+        "activationLink": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudGFsa29uNzg5QG1haWwucnUiLCJpYXQiOjE3MDg0NDc0MTUsImV4cCI6MTcwODQ0ODMxNX0.DgFiU8Caws6ObcHXkg8GFnSO3Q4iqP9aKOfXXqZ4_so",
+        "isActivated": true,
+        "tempCode": null,
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkaHhncHpsdGxyanBqcW4yIiwiaWF0IjoxNzA4NDU1MjE2fQ.MtCs3Ham9lAowUm1GIjqYRaga_vWUZwyxH_RQYBYvt4",
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhbnRhbGtvbjc4OUBtYWlsLnJ1IiwiaWF0IjoxNzA4NDU1MjE2LCJleHAiOjE3MDg0NTYxMTZ9.mXFhYQp17CkdERG2Oby7XqKXnvUgOGwtyw9VhzD7LPg"
+    }
+]

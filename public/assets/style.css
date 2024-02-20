@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital@0;1&display=swap');
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../registration/YandexSansDisplay-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../registration/YandexSansText-Medium.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../registration/YandexSansText-Bold.ttf');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../registration/YandexSansDisplay-Light.ttf');
+    font-weight: 300;
+    font-style: normal;
+}
+header{
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    top: 0px;
+}
+.left{
+    position: fixed;
+    z-index: 1001;
+    width: 15%;
+    height: 100%;
+    border-radius: 0px 15px 15px 0px;
+    background: #242937;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 1%;
+    padding-left: 1.5%;
+    padding-top: 10px;
+}
+main{
+    position: absolute;
+    width: calc(100% - 16.5%);
+    margin-left: 16.5%;
+    height: calc(100% - 70px);
+    margin-top: 70px;
+}
+.mainContent{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+}
+.userHead{
+    position: relative;
+    top: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+.userName{
+    font-family: 'YandexSans';
+    font-weight: 600;
+    font-size: 170%;
+}
+.userInfo{
+    font-family: 'YandexSans';
+    font-weight: 300;
+    font-size: 130%;
+}
