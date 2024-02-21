@@ -52,10 +52,10 @@ class UserController {
 
     async registration(req, res, next) {
         try {
-            const { name, family, otchestvo, number, email, password } = req.body;
+            const { name, family, otchestvo, rdate, number, email, password } = req.body;
             const hashedPassword = await bcrypt.hash(password, 10);
             const activationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
-            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8),firstName: name, lastName: family, middleName: otchestvo, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
+            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8),firstName: name, lastName: family, middleName: otchestvo, Date: rdate, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
             const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
 
             let users = [];
@@ -105,8 +105,6 @@ class UserController {
     }
 
     async login(req, res, next) {
-
-
         try {
             const { email, password, user_email, user_code } = req.body;
             const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
@@ -131,10 +129,12 @@ class UserController {
                 user.refreshToken = refreshToken;
                 user.accessToken = accessToken;
                 fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
-                res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-                res.cookie('accessToken', accessToken, { maxAge: 900000 });
-                res.json({ success: 'Authentication successful' });
                 await transporter.sendMail({ from: '"Зентас ID" <info@zentas.ru>', to: user_email, subject: 'Выполнен вход', text: `В ваш аккаунт выполнен вход: ${req.ip}` });
+
+                res.cookie('refreshToken', refreshToken, { domain: 'zentas.ru', httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+                res.cookie('accessToken', accessToken, { domain: 'zentas.ru', maxAge: 900000 });
+
+                return res.json({ success: 'Authentication successful' });
             } else {
                 return res.status(200).json({ message: 'Invalid request.' });
             }
@@ -150,36 +150,44 @@ class UserController {
             const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
             let users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
+            // Поиск пользователя по refreshToken
             const user = users.find(user => user.refreshToken === refreshToken);
             if (!user) {
-                res.redirect('/auth');
-                return res.status(400).json({ message: 'Refresh token not found' });
+                return res.redirect('/auth');
             }
+
+            // Верификация refreshToken
             jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
                 if (err) {
-                    res.redirect('/auth');
+                    // Если refreshToken неверен, перенаправляем на страницу аутентификации и отправляем сообщение об ошибке
                     return res.status(400).json({ message: 'Invalid refresh token' });
                 }
+
+                // Генерация нового accessToken и refreshToken
                 const accessToken = generateAccessToken(user);
-                const refreshToken = jwt.sign({ userId: user.UserId }, process.env.JWT_REFRESH_SECRET);
-                fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
-                user.refreshToken = refreshToken;
+                const newRefreshToken = jwt.sign({ userId: user.UserId }, process.env.JWT_REFRESH_SECRET);
+
+                // Обновление данных пользователя и сохранение в файл
+                user.refreshToken = newRefreshToken;
                 user.accessToken = accessToken;
                 fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
 
-                // Сохранение нового access token в куки
-                res.cookie('accessToken', accessToken, { httpOnly: false, maxAge: 900000 });
-                res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+                // Сохранение новых токенов в куки
+                res.cookie('accessToken', accessToken, { domain: 'zentas.ru', httpOnly: false, maxAge: 900000 });
+                res.cookie('refreshToken', newRefreshToken, { domain: 'zentas.ru', httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
 
+
+                // Перенаправление на предыдущую страницу или на главную
                 res.redirect(req.headers.referer || '/');
             });
 
         } catch (error) {
+            // В случае ошибки перенаправляем на страницу аутентификации и передаем ошибку в следующий middleware
             res.redirect('/auth');
-
             next(error);
         }
     }
+
 
 
 
@@ -252,7 +260,7 @@ class UserController {
                 console.log('+')
                 const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
                 if (!decodedToken.userId) {
-                    return res.status(200).json({message: 'Неверный токен.'});
+                    return res.status(500).json({message: 'Неверный токен.'});
                 }
 
                 const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
@@ -261,25 +269,120 @@ class UserController {
                 const user = users.find(user => user.email === decodedToken.userId);
 
                 if (!user || user.accessToken !== token) {
-                    return res.status(200).json({message: 'Неверный токен пользователя.'});
+                    return res.status(500).json({message: 'Неверный токен пользователя.'});
                 }
 
                 const resdata = {
                     name: user.firstName,
                     family: user.lastName,
                     number: user.phone,
-                    id: user.DislayId
+                    id: user.DislayId,
+                    date: user.Date
                 };
 
                 console.log(resdata);
                 res.json(resdata);
             }
+            if (req.body.hasOwnProperty('edit')) {
+                console.log(req.body);
+
+                try {
+                    const { email, name, surName, middleName, phone, date, userid } = req.body;
+                    const decodedToken = jwt.verify(userid, process.env.JWT_SECRET);
+
+                    if (!decodedToken) {
+                        return res.status(500).json({ message: 'Неверный токен.' });
+                    }
+
+                    const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
+                    let users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+                    const user = users.find(user => user.email === decodedToken.userId);
+                    if (!user || user.accessToken !== userid) {
+                        return res.status(500).json({ message: 'Неверный токен пользователя.' });
+                    }
+
+                    user.email = email;
+                    user.firstName = name;
+                    user.lastName = surName;
+                    user.middleName = middleName;
+                    user.phone = phone;
+                    user.Date = date;
+
+                    fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
+
+                    return res.status(200).json({ success: "Изменения приняты!" });
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    return res.status(500).json({ message: 'Произошла ошибка при обработке запроса.' });
+                }
+            }
+
+            if (req.body.hasOwnProperty('edu')) {
+                console.log(req.body);
+
+                try {
+                    const { Class, School, userid } = req.body;
+                    const decodedToken = jwt.verify(userid, process.env.JWT_SECRET);
+                    if (!decodedToken) {
+                        return res.status(500).json({ message: 'Неверный токен.' });
+                    }
+                    const usersFilePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
+                    const schoolFilePath = path.join(__dirname, '..', 'database', 'school', 'school.json');
+                    let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+                    const user = users.find(user => user.email === decodedToken.userId);
+                    const schoolData = {
+                        userid: user.DislayId, // Используйте идентификатор пользователя, чтобы связать данные с пользователем
+                        Class: Class,
+                        School: School
+                    };
+                    let schoolDataArray = JSON.parse(fs.readFileSync(schoolFilePath, 'utf8'));
+                    const existingUserIndex = schoolDataArray.findIndex(item => item.userid === user.UserId);
+                    if (existingUserIndex !== -1) {
+                        schoolDataArray[existingUserIndex] = schoolData;
+                    } else {
+                        schoolDataArray.push(schoolData);
+                    }
+                    fs.writeFileSync(schoolFilePath, JSON.stringify(schoolDataArray, null, 4));
+                    return res.status(200).json({ success: "Изменения приняты!" });
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    return res.status(500).json({ message: 'Произошла ошибка при обработке запроса.' });
+                }
+            }
+            if (req.body.hasOwnProperty('edureq')) {
+                console.log(req.body);
+
+                try {
+                    const { userid } = req.body;
+                    const decodedToken = jwt.verify(userid, process.env.JWT_SECRET);
+                    const usersFilePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
+                    const schoolFilePath = path.join(__dirname, '..', 'database', 'school', 'school.json');
+                    let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+                    let school = JSON.parse(fs.readFileSync(schoolFilePath, 'utf8'));
+                    const user = users.find(user => user.email === decodedToken.userId);
+                    const existingUserIndex = school.find(existingUserIndex => existingUserIndex.userid === user.DislayId);
+
+                    const schoolData = {
+                        userid: user.DislayId, // Используйте идентификатор пользователя, чтобы связать данные с пользователем
+                        Class: existingUserIndex.Class,
+                        School: existingUserIndex.School
+                    };
+                    console.log(schoolData);
+                    return res.status(200).json(schoolData);
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    return res.status(500).json({ message: 'Произошла ошибка при обработке запроса.' });
+                }
+            }
 
 
 
+            else {
+            res.status(400).json({message: 'errir'})
+            }
 
         } catch (error) {
-
             next(error);
         }
     }
