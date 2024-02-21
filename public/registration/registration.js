@@ -1,7 +1,8 @@
 const name = document.getElementById('r_name')
 const surname = document.getElementById('r_surname')
 const middle_name = document.getElementById('r_middleName')
-const date = document.getElementById('r_date')
+const date = document.getElementById('r_date');
+
 const email = document.getElementById('r_email')
 const phone = document.getElementById('r_phone')
 const password = document.getElementById('r_password')
@@ -16,6 +17,8 @@ function registerCheck(){
                 console.log('MIDDLE_NAME +')
                 if(date.value.length >= 10){
                     console.log('DATE +')
+
+
                     if (email.value.includes("@")) {
                         console.log('EMAIL +');
                         if (phone.value.includes("+7") && phone.value.length >= 12){
@@ -58,13 +61,17 @@ function registerCheck(){
 }
 
 function registration(){
+    let parts = date.value.split('-');
+    let formattedDate = parts[2] + '.' + parts[1] + '.' + parts[0];
     const data = {
         name: name.value,
         family: surname.value,
         otchestvo: middle_name.value,
+        rdate: formattedDate,
         number: phone.value,
         email: email.value,
         password: password.value
+
 
     };
 

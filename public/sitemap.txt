@@ -1,0 +1,7 @@
+https://id.zentas.ru
+https://id.zentas.ru/auth
+https://id.zentas.ru/data
+https://id.zentas.ru/support
+https://id.zentas.ru/security
+https://id.zentas.ru/politics
+

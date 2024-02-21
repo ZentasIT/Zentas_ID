@@ -9,7 +9,7 @@ const router = require('../router/index.js');
 
 require('dotenv').config();
 function generateAccessToken(user) {
-    return jwt.sign({ userId: user.email }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    return jwt.sign({ userId: user.email }, process.env.JWT_SECRET, { expiresIn: '24h' });
 }
 function generateRefreshToken(user) {
     return jwt.sign({ userId: user.email }, process.env.JWT_SECRET, { expiresIn: '15m' });
@@ -52,10 +52,10 @@ class UserController {
 
     async registration(req, res, next) {
         try {
-            const { name, family, otchestvo, number, email, password } = req.body;
+            const { name, family, otchestvo, rdate, number, email, password } = req.body;
             const hashedPassword = await bcrypt.hash(password, 10);
             const activationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
-            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8),firstName: name, lastName: family, middleName: otchestvo, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
+            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8),firstName: name, lastName: family, middleName: otchestvo, Date: rdate, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
             const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
 
             let users = [];
@@ -105,8 +105,6 @@ class UserController {
     }
 
     async login(req, res, next) {
-
-
         try {
             const { email, password, user_email, user_code } = req.body;
             const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
@@ -121,7 +119,7 @@ class UserController {
                 user.tempCode = authCode.toString();
                 fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
                 return res.status(200).json({ success: 'Код отправлен на email' });
-            } else if (user_email && user_code) {
+            } if (user_email && user_code) {
                 const user = users.find(user => user.email === user_email);
                 if (!user) return res.status(200).json({ message: 'Пользователь не найден' });
                 if (user.tempCode !== user_code) return res.status(200).json({ message: 'Неверный код' });
@@ -131,10 +129,13 @@ class UserController {
                 user.refreshToken = refreshToken;
                 user.accessToken = accessToken;
                 fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
+                console.log("__")
                 res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
                 res.cookie('accessToken', accessToken, { maxAge: 900000 });
-                res.json({ success: 'Authentication successful' });
-                await transporter.sendMail({ from: '"Зентас ID" <info@zentas.ru>', to: user_email, subject: 'Выполнен вход', text: `В ваш аккаунт выполнен вход: ${req.ip}` });
+                // res.cookie('refreshToken', refreshToken, { domain: 'zentas.ru', httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+                // res.cookie('accessToken', accessToken, { domain: 'zentas.ru', maxAge: 900000 });
+                console.log("--")
+                return res.json({ success: 'Authentication successful' });
             } else {
                 return res.status(200).json({ message: 'Invalid request.' });
             }
@@ -150,36 +151,46 @@ class UserController {
             const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
             let users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
+            // Поиск пользователя по refreshToken
             const user = users.find(user => user.refreshToken === refreshToken);
             if (!user) {
-                res.redirect('/auth');
-                return res.status(400).json({ message: 'Refresh token not found' });
+                return res.redirect('/auth');
             }
+
+            // Верификация refreshToken
             jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
                 if (err) {
-                    res.redirect('/auth');
+                    // Если refreshToken неверен, перенаправляем на страницу аутентификации и отправляем сообщение об ошибке
                     return res.status(400).json({ message: 'Invalid refresh token' });
                 }
+
+                // Генерация нового accessToken и refreshToken
                 const accessToken = generateAccessToken(user);
-                const refreshToken = jwt.sign({ userId: user.UserId }, process.env.JWT_REFRESH_SECRET);
-                fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
-                user.refreshToken = refreshToken;
+                const newRefreshToken = jwt.sign({ userId: user.UserId }, process.env.JWT_REFRESH_SECRET);
+
+                // Обновление данных пользователя и сохранение в файл
+                user.refreshToken = newRefreshToken;
                 user.accessToken = accessToken;
                 fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
 
-                // Сохранение нового access token в куки
+                // Сохранение новых токенов в куки
                 res.cookie('accessToken', accessToken, { httpOnly: false, maxAge: 900000 });
-                res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+                res.cookie('refreshToken', newRefreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+                // res.cookie('accessToken', accessToken, { domain: 'zentas.ru', httpOnly: false, maxAge: 900000 });
+                // res.cookie('refreshToken', newRefreshToken, { domain: 'zentas.ru', httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
 
+
+                // Перенаправление на предыдущую страницу или на главную
                 res.redirect(req.headers.referer || '/');
             });
 
         } catch (error) {
+            // В случае ошибки перенаправляем на страницу аутентификации и передаем ошибку в следующий middleware
             res.redirect('/auth');
-
             next(error);
         }
     }
+
 
 
 
@@ -225,64 +236,7 @@ class UserController {
         }
     }
 
-    async request(req, res, next) {
-        try {
-            if (req.body && req.body.userName) {
-                const token = req.body.userName;
-                const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-                if (!decodedToken.userId) {
-                    return res.status(200).json({message: 'Неверный токен.'});
-                }
 
-                const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
-                let users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-                const user = users.find(user => user.email === decodedToken.userId);
-                if (!user) {
-                    return res.status(200).json({message: 'Пользователь не найден.'});
-                }
-                res.json({ daaa: user.firstName });
-
-            }
-            if (req.body && req.body.mainpage){
-                const token = req.body.mainpage;
-
-                // Проверка на пустой токен или отсутствие токена
-
-                console.log('+')
-                const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-                if (!decodedToken.userId) {
-                    return res.status(200).json({message: 'Неверный токен.'});
-                }
-
-                const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
-                let users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-                const user = users.find(user => user.email === decodedToken.userId);
-
-                if (!user || user.accessToken !== token) {
-                    return res.status(200).json({message: 'Неверный токен пользователя.'});
-                }
-
-                const resdata = {
-                    name: user.firstName,
-                    family: user.lastName,
-                    number: user.phone,
-                    id: user.DislayId
-                };
-
-                console.log(resdata);
-                res.json(resdata);
-            }
-
-
-
-
-        } catch (error) {
-
-            next(error);
-        }
-    }
 
 }
 

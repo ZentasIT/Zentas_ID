@@ -1,7 +1,7 @@
 let userName; // Имя
 let userSurname; // Фамилия
 let phone; // Номер телефона
-let DislayId; // ID
+let date; // ID
 requestMpData()
 function getAccessTokenFromCookies() {
     const cookies = document.cookie.split(';');
@@ -46,7 +46,7 @@ function requestMpData(){
             userName = data.name;
             userSurname = data.family;
             phone = data.number;
-            DislayId = data.id;
+            date = data.date;
             document.getElementById("loader").remove()
             loadUserHead()
         })
