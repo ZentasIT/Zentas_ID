@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/loader.css">
@@ -14,6 +14,40 @@
     <title>Данные</title>
 </head>
 <body>
+<div id="edit-modal" class="edit-moadl">
+    <div class="em">
+        <div class="em_dr_h">
+            <h1 class="em_dt">Ваши данные</h1>
+            <i onclick="closeModal()" class="fi fi-rr-cross icons"></i>
+
+        </div>
+        <div class="avatar_box">
+            <img class="e_ava" src="assets/user.png">
+            <h1 class="id_em_set">ID: <span id="ids">000000</span></h1>
+        </div>
+        <div class="em_konf_d">
+            <div class="em_dd_t_box">
+                <p1 class="em_kd_titke">Персональные данные</p1>
+                <div class="em_dd_b_container">
+                    <h1 class="em_dd_b_c_pt t70">Фамилия, имя, отчество</h1>
+                    <input type="text" id="Familiya" class="input_pd" placeholder="Фамилия">
+                    <input type="text" id="Imya" class="input_pd" placeholder="Имя">
+                    <input type="text" id="Othestvo" class="input_pd" placeholder="Отчество">
+                </div>
+                <div class="em_dd_b_container">
+                    <h1 class="em_dd_b_c_pt">Дата рождения</h1>
+                    <input type="text" id="datar" class="input_pd" placeholder="Дата рождения">
+                </div>
+                <div class="em_dd_b_container">
+                    <h1 class="em_dd_b_c_pt">Телефон</h1>
+                    <input type="text" id="phn" class="input_pd" placeholder="Номер телефона">
+                </div>
+                <button onclick="modalSave()" class="sendedit">Сохранить</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="body2" id="loader">
     <div class="banter-loader">
         <div class="banter-loader__box"></div>
@@ -65,12 +99,13 @@
                     <h1 class="date requestme"><span id="date">00.00.0000</span> ▪ <span id="phone">Телефон</span></h1>
 
                 </div>
-                <img src="./assets/icons/pencil.png" alt="" class="edit">
+                <img src="./assets/icons/pencil.png" onclick="openModal()" alt="" class="edit">
 <!--                <h1 id="userIngfo" class="userInfo">+79000000000 ID: 000000</h1>-->
             </div>
         </div>
     </main>
     <script src="./assets/script.js"></script>
     <script src="./assets/function.js"></script>
+    <script src="./assets/modal.js"></script>
 </body>
 </html>

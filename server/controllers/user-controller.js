@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+
 const path = require('path'); // Добавляем импорт модуля path
 const cookieParser = require('cookie-parser');
 const express = require("express");
@@ -55,32 +56,48 @@ class UserController {
             const { name, family, otchestvo, rdate, number, email, password } = req.body;
             const hashedPassword = await bcrypt.hash(password, 10);
             const activationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
-            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8),firstName: name, lastName: family, middleName: otchestvo, Date: rdate, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
-            const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
+            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8), firstName: name, lastName: family, middleName: otchestvo, Date: rdate, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
+            const usersFilePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
+            const templateFolderPath = path.join(__dirname, '..', 'database', 'uFolders', 'template');
+            const userFolderName = newUser.UserId;
+            const newUserFolderPath = path.join(__dirname, '..', 'database', 'uFolders', userFolderName);
 
             let users = [];
-            try { users = JSON.parse(fs.readFileSync(filePath, 'utf8')); } catch (err) { console.log('Error reading or parsing file:', err); }
-
-            if (!Array.isArray(users)) {
-                users = []; // Если users не является массивом, инициализируем его пустым массивом
+            try {
+                users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+            } catch (err) {
+                console.log('Error reading or parsing users file:', err);
             }
 
-            // Проверяем, есть ли уже пользователь с таким email
+            if (!Array.isArray(users)) {
+                users = [];
+            }
+
             const existingUser = users.find(user => user.email === email);
             if (existingUser) {
-                return res.status(200).json({ message: 'Пользователь с такой почтой существует' });
+                return res.status(200).json({ message: 'Пользователь с такой почтой уже существует' });
             }
 
             users.push(newUser);
-            fs.writeFileSync(filePath, JSON.stringify(users, null, 4));
+            fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 4));
 
-            const mailOptions = { from: '"Зентас ID" <info@zentas.ru>', to: email, subject: 'Подтвердите свой электронный адрес', html: `Ссылка на активацию: <a href="http://localhost:5000/activate/${activationToken}">http://localhost:5000/activate/${activationToken}</a>` };
+            fs.mkdirSync(newUserFolderPath);
+
+            fs.readdirSync(templateFolderPath).forEach(file => {
+                const sourceFilePath = path.join(templateFolderPath, file);
+                const destFilePath = path.join(newUserFolderPath, file);
+                fs.copyFileSync(sourceFilePath, destFilePath);
+            });
+
+            const mailOptions = { from: '"Зентас ID" <info@zentas.ru>', to: email, subject: 'Подтвердите свой электронный адрес', html: `Ссылка на активацию: <a href="http://localhost:5000/api/activate/${activationToken}">http://localhost:5000/activate/${activationToken}</a>` };
             await transporter.sendMail(mailOptions);
 
             res.status(201).json({ success: 'Пользователь зарегистрирован успешно. Ссылка на активацию отправлена на почту' });
-        } catch (error) { console.error("Error during registration:", error); next(error); }
+        } catch (error) {
+            console.error("Error during registration:", error);
+            next(error);
+        }
     }
-
 
 
 

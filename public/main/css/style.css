@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital@0;1&display=swap');
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../fonts/YandexSansDisplay-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../fonts/YandexSansText-Medium.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YandexSans';
+    src: url('../fonts/YandexSansText-Bold.ttf');
+    font-weight: 800;
+    font-style: normal;
+}
+header{
+    position: relative;
+    width: 100%;
+    height: 60px;
+    top: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+.z_idl{
+    width: 139px;
+    margin-left: 2%;
+    cursor: pointer;
+}
+.n1{
+    position: relative;
+    top: -60px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 90px;
+}
+.n2{
+    position: relative;
+    top: calc(100% + 105px);
+    width: 100%;
+    height: 200%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+}
+.n3{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 200px;
+}
+.ptiele{
+    position: relative;
+    font-family: YandexSans;
+    font-weight: 800;
+    font-size: 400%;
+    color: black;
+}
+.elementm{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+.elem_left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.loginto{
+    cursor: pointer;
+    border-radius: 15px;
+    width: 226px;
+    height: 72px;
+    background: #00a3ff;
+    border: none;
+    color: white;
+    font-family: YandexSans;
+    font-weight: 800;
+    font-size: 120%;
+}
+.elem_right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 40px;
+}
+.elem_case{
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+.case_text{
+    font-family: YandexSans;
+    font-weight: 600;
+    font-size: 320%;
+    color: black;
+}
+.desT{
+    position: absolute;
+    bottom: -45px;
+    width: 45%;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 140%;
+    color: black;
+    text-align: center;
+}
+.color1{
+    opacity: 0.60;
+
+}
+.color2{
+    opacity: 0.80;
+
+}
+.case{
+    width: 45%;
+    height: 45vh;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.img_C{
+    height: 219px;
+}
+.c_titles{
+    height: 100%;
+    width: 43%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.main_ct{
+    width: 100%;
+    color: black;
+    font-family: YandexSans;
+    font-weight: 600;
+    font-size: 250%;
+}
+.des_ct{
+    width: 100%;
+    color: black;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 160%;
+}
+.img_C{
+    height: 151px;
+}
+.img_C{
+    height: 170px;
+}
+.accordion{
+    width: 50%;
+}
+/* Цвет активного (открытого) аккордеона */
+.accordion-item.show .accordion-button {
+    background-color: #BFE6FF; /* Светло-голубой цвет */
+}
+
+/* Отключение цвета при нажатии */
+.accordion-item .accordion-button:not(.collapsed) {
+    background-color: initial; /* Сброс цвета по умолчанию */
+}
+.accordion-button{
+    font-family: YandexSans;
+    font-weight: 800;
+}
+
+footer{
+    position: relative;
+    width: 100%;
+    height: 25vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 70px;
+}
+.login_btns{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.create_acc{
+    width: 7%;
+    height: 60px;
+    color: white;
+    background: #2b91ff;
+    border: none;
+    border-radius: 12px;
+    font-family: YandexSans;
+    font-weight: 600;
+    font-size: 120%;
+}
+.login_acc{
+    width: 20%;
+    height: 60px;
+    color: #000000;
+    background: #ffffff;
+    border: 1px Esolid black;
+    border-radius: 12px;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 120%;
+}
+.login_acc:hover{
+    background: #dadada;
+}
+.create_acc:hover{
+    background: #429eff;
+}
+.footer_line{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.footer_txt{
+    cursor: pointer;
+    font-family: YandexSans;
+    font-weight: 400;
+    color: #696969;
+    text-decoration: none;
+    font-size: 120%;
+}
+.zen{
+    height: 15%;
+}

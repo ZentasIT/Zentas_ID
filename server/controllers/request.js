@@ -50,6 +50,7 @@ class request{
                 const resdata = {
                     name: user.firstName,
                     family: user.lastName,
+                    surname: user.middleName,
                     number: user.phone,
                     id: user.DislayId,
                     date: user.Date
@@ -62,7 +63,7 @@ class request{
                 console.log(req.body);
 
                 try {
-                    const { email, name, surName, middleName, phone, date, userid } = req.body;
+                    const { name, surName, middleName, phone, date, userid } = req.body;
                     const decodedToken = jwt.verify(userid, process.env.JWT_SECRET);
 
                     if (!decodedToken) {
@@ -77,7 +78,6 @@ class request{
                         return res.status(500).json({ message: 'Неверный токен пользователя.' });
                     }
 
-                    user.email = email;
                     user.firstName = name;
                     user.lastName = surName;
                     user.middleName = middleName;
@@ -158,6 +158,62 @@ class request{
             }
 
         } catch (error) {
+            next(error);
+        }
+    }
+    async education(req, res, next) {
+        try {
+            if (req.body.hasOwnProperty('educationList')) {
+                const schoolDB = path.join(__dirname, '..', 'database', 'school', 'schoolBase.json');
+                const sdb = JSON.parse(fs.readFileSync(schoolDB, 'utf8'))
+                const names = sdb.map(obj => obj.schoolName);
+                console.log(names)
+                res.json(names);
+
+            }
+            if (req.body.hasOwnProperty('addEdu')) {
+                function generateSchoolId() {
+                    // Генерация 6-значного случайного числа
+                    const code = Math.floor(100000 + Math.random() * 900000);
+                    return code.toString();
+                }
+
+                const { schoolState, schoolName, schoolAddress } = req.body;
+                const schoolDB = path.join(__dirname, '..', 'database', 'school', 'schoolBase.json');
+
+                // Чтение существующего файла
+                let sdb = [];
+                try {
+                    sdb = JSON.parse(fs.readFileSync(schoolDB, 'utf8'));
+                } catch (error) {
+                    console.error('Ошибка чтения файла:', error);
+                }
+
+                // Создание нового объекта
+                const obj = {
+                    schoolId: generateSchoolId(),
+                    schoolState: schoolState,
+                    schoolName: schoolName,
+                    schoolAddress: schoolAddress
+                }
+
+                // Добавление нового объекта в массив
+                sdb.push(obj);
+
+                // Запись обновленного массива в файл
+                fs.writeFile(schoolDB, JSON.stringify(sdb, null, 2), err => {
+                    if (err) {
+                        console.error('Ошибка записи в файл:', err);
+                        return;
+                    }
+                    console.log('Объект успешно записан в файл.');
+                });
+
+                res.status(200).json(obj);
+            }
+
+        }
+        catch (error) {
             next(error);
         }
     }

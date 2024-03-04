@@ -171,3 +171,125 @@ main{
     right: 15px;
     height: 30%;
 }
+.edit-moadl{
+    z-index: 3001;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(107, 107, 107, 0.5);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+.em{
+    position: absolute;
+    width: 25%;
+    background: white;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 1vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+.em_dr_h{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.em_dt{
+    margin-left: 5%;
+    font-family: YandexSans;
+    font-weight: 600;
+    font-size: 190%;
+}
+.fi-rr-cross{
+    cursor: pointer;
+    position: relative;
+    scale: 1.5;
+    margin-right: 5%;
+}
+.em_konf_d{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+.em_dd_t_box{
+    width: 95%;
+    margin-left: 5%;
+}
+.em_kd_titke{
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 160%;
+    color: #2d2d2d;
+}
+.avatar_box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+}
+.id_em_set{
+    font-family: "Open Sans";
+    font-weight: 400;
+    font-size: 120%;
+}
+.e_ava{
+    width: 25%;
+}
+.em_dd_b_container{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+.input_pd{
+    width: 100%;
+    height: 40px;
+    border-radius: 0.5vw;
+    border: 1px solid #1a1e29;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 140%;
+}
+.em_dd_b_c_pt{
+    width: 100%;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 140%;
+    color: #4d4d4d;
+    margin-top: 20px;
+}
+.t70{
+    margin-top: 70px;
+}
+.sendedit{
+    cursor: pointer;
+    margin-top: 30px;
+    width: 90%;
+    height: 40px;
+    border-radius: 0.5vw;
+    border: 1px solid #1a1e29;
+    font-family: YandexSans;
+    font-weight: 400;
+    font-size: 140%;
+    background: #1a1e29;
+    color: white;
+}

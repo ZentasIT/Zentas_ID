@@ -10,6 +10,7 @@ router.post('/registration', userController.registration);
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.post('/request', request.request);
+router.post('/edu', request.education);
 router.get('/activate/:link', userController.activate); // здесь исправлено
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);

@@ -18,6 +18,10 @@
     font-weight: 800;
     font-style: normal;
 }
+main{
+    position: relative;
+    width: 100%;
+}
 body{
     position: fixed;
     background: #1a1e29;
