@@ -248,7 +248,7 @@ class UserController {
 
         } catch (error) {
             // В случае ошибки перенаправляем на страницу аутентификации и передаем ошибку в следующий middleware
-            res.redirect('/auth');
+            res.redirect('/');
             next(error);
         }
     }
