@@ -25,11 +25,51 @@
     font-style: normal;
 }
 header{
+    background: #242937;
+
     position: fixed;
     width: 100%;
     height: 70px;
     top: 0px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: end;
+    gap: 1%;
 }
+.usericon{
+    height: 65%;
+    margin-right: 1%;
+}
+.searchbox{
+    width: 15%;
+    height: 60%;
+    border: 1px solid #8c8c8c;
+    border-radius: 1vh;
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.searchinp{
+    font-family: YandexSans;
+    font-weight: 600;
+    margin-left: 5%;
+    color: #a9a9a9;
+    border: none;
+    height: 90%;
+    font-size: 110%;
+    background: none;
+}
+.searchimg{
+    margin-right: 5%;
+    height: 50%;
+}
+input {outline:none;}
+
 .left{
     position: fixed;
     z-index: 1001;
@@ -46,16 +86,43 @@ header{
 }
 main{
     position: absolute;
-    width: calc(100% - 20%);
-    margin-left: 20%;
+    width: 100vw;
+
     height: calc(100% - 70px);
     margin-top: 70px;
+    background: #242937;
+}
+.banner{
+    cursor: pointer;
+    width: 35%;
+    height: 10vh;
+    background: linear-gradient(180deg, #262d43 0%, #2c4382 100%);
+    border-radius: 3vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.banner_title{
+    font-family: YandexSans;
+    font-weight: 600;
+    color: white;
+    font-size: 3vh;
+
+}
+.banner_link{
+    font-family: YandexSans;
+    font-weight: 600;
+    color: #0066FF;
+    font-size: 3vh;
+
 }
 .mainContent{
     position: relative;
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: start;
     gap: 20px;
@@ -73,14 +140,17 @@ main{
 .userName{
     font-family: 'YandexSans';
     font-weight: 600;
-    font-size: 170%;
+    font-size: 180%;
+    color: white;
 }
 .userInfo{
     font-family: 'YandexSans';
     font-weight: 300;
-    font-size: 130%;
+    font-size: 140%;
+    color: white;
 }
 .user_icon{
+    width: 9%;
     cursor: pointer;
 }
 
@@ -109,7 +179,97 @@ main{
     margin-left: 20px;
 }
 
+.pro{
+    margin-top: 1%;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 25px;
+}
+.rt_box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 2%;
+    height: 3vh;
+}
+.rt_next{
+    cursor: pointer;
+    position: relative;
+    height: 90%;
+}
+.statusbox{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.statuscase{
+    cursor: pointer;
+    width: 30%;
+    height: 10vh;
+    background: linear-gradient(168deg, #262d43 0%, #2c4382 100%);
+    border-radius: 2vh;
 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 7%;
+}
+.txts{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 2%;
+}
+.maintxt{
+    font-family: 'YandexSans';
+    font-weight: 600;
+    font-size: 2vh;
+    color: white;
+}
+.destxt{
+    font-family: 'YandexSans';
+    font-weight: 600;
+    font-size: 1.5vh;
+    color: white;
+}
+.shapesblue{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100%;
+    background: #0080ff;
+}
+.shapesred{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100%;
+    background: #ff5252;
+}
+.shapesgreen{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100%;
+    background: #00b208;
+}
+.protitle{
+    cursor: pointer;
+    color: white;
+    font-family: 'YandexSans';
+    font-weight: 600;
+    font-size: 3vh;
+}
+.miniimg{
+    height: 3vh;
+}
 .m_title{
     color: white;
     font-family: 'YandexSans';

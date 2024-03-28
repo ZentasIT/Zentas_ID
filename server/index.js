@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const router = require('./router/index');
+const routerPay = require('./router/pay');
 const path = require("path");
 const fs = require("fs");
 
@@ -32,6 +33,7 @@ app.use(cors({
     credentials: true // Разрешаем передачу учетных данных (например, куки)
 }));
 app.use('/api', router);
+app.use('/pay', routerPay);
 app.use(ID);
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

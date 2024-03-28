@@ -217,5 +217,48 @@ class request{
             next(error);
         }
     }
+    async pro(req, res, next) {
+        try {
+            if (req.body && req.body.data){
+                const token = req.body.data;
+
+                // Проверка на пустой токен или отсутствие токена
+
+                console.log('+')
+                const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+                if (!decodedToken.userId) {
+                    return res.status(500).json({message: 'Неверный токен.'});
+                }
+
+                const filePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
+                let users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+                const user = users.find(user => user.UserId === decodedToken.userId2);
+
+                // if (!user || user.accessToken !== token) {
+                //     return res.status(500).json({message: 'Неверный токен пользователя.'});
+                // }
+                const filePro = path.join(__dirname, '..', 'database', 'pro', 'proUsers.json');
+                let pros = JSON.parse(fs.readFileSync(filePro, 'utf8'))
+                const prousr = pros.find(user => user.UserId === decodedToken.userId);
+                console.log("userid", prousr)
+
+                const resdata = {
+                    exp: prousr.ExpDate,
+                    count: prousr.count,
+                    expCount: prousr.expCount,
+                    quests: prousr.quests,
+
+                };
+
+                console.log(resdata);
+                res.json(resdata);
+            }
+        }
+        catch (error){
+            next(error);
+
+        }
+    }
 }
 module.exports = new request();
