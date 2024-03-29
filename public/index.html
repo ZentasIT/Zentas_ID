@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <description style="z-index: 0; position: absolute; display: none;">Zentas ID - Ваш универсальный ключ к миру сервисов Zentas! Этот инновационный сервис предоставляет единую точку доступа ко всей экосистеме Zentas, где хранится и управляется вся информация и данные пользователей. С Zentas ID вы получаете максимальную удобство и безопасность, ведь один аккаунт предоставляет доступ ко всем сервисам и ресурсам Zentas. Освободите себя от необходимости запоминать множество логинов и паролей - с Zentas ID ваша цифровая жизнь становится более удобной и защищенной!</description>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/style.css">
@@ -30,6 +31,9 @@
     <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+
+<!-- Модальное окно -->
+
 <div class="body2" id="loader">
     <div class="banter-loader">
         <div class="banter-loader__box"></div>
@@ -43,9 +47,38 @@
         <div class="banter-loader__box"></div>
     </div>
 </div>
+<div class="modal" id="exampleModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Купить подписку Зентас PRO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <p><b>Стоимость подписки Зентас PRO - <span style="color: #00a3ff">150руб/мес</span></b></p>
+                <p>Оплата онлайн (СБП, банковская карта)</p>
+                <hr>
+                <h3>Приемущества подписки:</h3>
+                <p>Покупая подписку Зентас PRO вы получите неограниченый доступ к экосистеми сервисов Зентас!</p>
+                <p>А также, вам будет доступна персональная тех.поддержка которая всегда готова прийти на помощь!</p>
+                <hr>
+                <p>Условия и договор оферты - <a href="/privacy/oferta.pdf" data-bs-toggle="Открыть договор оферты и условия подписки" title="Tooltip">Открыть</a> </p>
+                <p>Политика обработки персональных данных - <a href="/privacy/perosndat.pdf" data-bs-toggle="Открыть договор оферты и условия подписки" title="Tooltip">Открыть</a> </p>
+                <p>Поддержка по вопросам Зентас PRO - <a href="https://t.me/ZenProSup_bot" data-bs-toggle="Открыть договор оферты и условия подписки" title="Tooltip">Открыть</a> </p>
+                <span style="color: red">*покупка подписки временно не доступна. Мы ожидаем подтверждение платежной системы. Приносим свои извинения. Если у вас есть впоросы нпишите нам support-id@zentas.ru</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" style="cursor: not-allowed">Купить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <header>
         <div class="searchbox">
-            <input type="text" placeholder="Поиск" class="searchinp">
+            <input type="text" placeholder="Поиск" id="searchbox" class="searchinp">
             <img src="./assets/icons/search.png" alt="" class="searchimg">
         </div>
 
@@ -60,14 +93,14 @@
             <img src="./assets/icons/home.png" alt="" class="iconi">
             <h1 class="m_title">Главная</h1>
         </div>
-        <div class="button_left_m">
+        <div class="button_left_m" onclick="window.location.href = '/data';">
             <img src="./assets/icons/document.png" alt="" class="iconi">
             <h1 class="m_title">Данные</h1>
         </div>
-        <div class="button_left_m">
-            <img src="./assets/icons/shield-check.png" alt="" class="iconi">
-            <h1 class="m_title">Безопасность</h1>
-        </div>
+<!--        <div class="button_left_m">-->
+<!--            <img src="./assets/icons/shield-check.png" alt="" class="iconi">-->
+<!--            <h1 class="m_title">Безопасность</h1>-->
+<!--        </div>-->
         <div class="button_left_m">
             <img src="./assets/icons/comments.png" alt="" class="iconi">
             <h1 class="m_title">Поддержка</h1>
@@ -84,9 +117,9 @@
                 <h1 id="userIngfo" class="userInfo">+79000000000 ID: 000000</h1>
 
             </div>
-            <div class="banner">
-                <h1 class="banner_title">Подписка зентас PRO со</h1>
-                <h1 class="banner_link">скидкой 49%</h1>
+            <div class="banner" onclick="openModal()">
+                <h1 class="banner_title" id="proTitle" >Подписка зентас PRO со</h1>
+                <h1 class="banner_link" id="expDate" >скидкой 49%</h1>
             </div>
 <!--            <img src="./assets/sale.png" alt="" class="banner">-->
             <div class="pro">
@@ -99,21 +132,21 @@
                     <div class="statuscase">
                         <div class="shapesblue"></div>
                         <div class="txts">
-                            <h1 class="maintxt">100</h1>
+                            <h1 id="count" class="maintxt">0</h1>
                             <h1 class="destxt">Баллов</h1>
                         </div>
                     </div>
                     <div class="statuscase">
                         <div class="shapesred"></div>
                         <div class="txts">
-                            <h1 class="maintxt">900</h1>
+                            <h1 id="expc" class="maintxt">0</h1>
                             <h1 class="destxt">Потрачено</h1>
                         </div>
                     </div>
                     <div class="statuscase">
                         <div class="shapesgreen"></div>
                         <div class="txts">
-                            <h1 class="maintxt">7</h1>
+                            <h1 class="maintxt">0</h1>
                             <h1 class="destxt">Доступно</h1>
                         </div>
                     </div>
@@ -127,25 +160,25 @@
 
                 </div>
                 <div class="statusbox">
-                    <div class="statuscase">
+                    <div onclick="openModal()" class="statuscase">
                         <img src="assets/premium.png" class="shapesblue"></img>
                         <div class="txts">
                             <h1 class="maintxt">PRO</h1>
-                            <h1 class="destxt">До 01.02.2024</h1>
+                            <h1 class="destxt" id="expdat">Купить</h1>
                         </div>
                     </div>
-                    <div class="statuscase">
-                        <img src="assets/education.png" class="miniimg"></img>
-                        <div class="txts">
+                    <div class="statuscase" style="cursor: not-allowed">
+                        <img src="assets/education.png" class="miniimg" style="cursor: not-allowed"></img>
+                        <div class="txts" style="cursor: not-allowed">
                             <h1 class="maintxt">EDU</h1>
-                            <h1 class="destxt">Купить</h1>
+                            <h1 class="destxt">Недоступно</h1>
                         </div>
                     </div>
-                    <div class="statuscase">
-                        <img src="assets/bussines.png" class="miniimg"></img>
-                        <div class="txts">
+                    <div class="statuscase" style="cursor: not-allowed">
+                        <img src="assets/bussines.png" class="miniimg" style="cursor: not-allowed"></img>
+                        <div class="txts" style="cursor: not-allowed">
                             <h1 class="maintxt">BUSINESS</h1>
-                            <h1 class="destxt">Купить</h1>
+                            <h1 class="destxt">Недоступно</h1>
                         </div>
                     </div>
 
@@ -156,5 +189,7 @@
     </main>
     <script src="./assets/script.js"></script>
     <script src="./assets/function.js"></script>
+    <script src="./assets/search.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

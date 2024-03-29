@@ -195,7 +195,10 @@ class UserController{
             const user = users.find(user => user.refreshToken === refreshToken);
             if (!user) return res.redirect('/auth');
             jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
-                // if (err) return res.status(400).json({ message: 'Invalid refresh token' });
+                // if (err){
+                //     return res.redirect('/auth')
+                //      // res.status(400).json({ message: 'Invalid refresh token' });
+                // }
                 const accessToken = generateAccessToken(user);
                 const newRefreshToken = generateRefreshToken(user)
                 user.refreshToken = newRefreshToken;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+<h1>Результаты поиска</h1>
+<h3>Стили страницы временно отключены. Приносим извинения за временные неудобства.</h3>
+<div id="searchResults"></div>
+
+<script>
+    // Получение объектов из переменной foundObjects
+    var foundObjects = {{foundObjects}};
+
+    // Функция для создания элементов на основе объектов
+    function createElements(objects) {
+        var searchResultsDiv = document.getElementById("searchResults");
+
+        objects.forEach(function(object) {
+            var link = document.createElement("a");
+            link.href = object.url;
+            link.textContent = object.title + " - " + object.ses;
+            link.target = "_blank"; // Открыть ссылку в новой вкладке
+
+            var br = document.createElement("br");
+
+            searchResultsDiv.appendChild(link);
+            searchResultsDiv.appendChild(br);
+        });
+    }
+
+    // Вызов функции для создания элементов
+    createElements(foundObjects);
+</script>
+</body>
+</html>

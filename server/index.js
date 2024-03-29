@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const router = require('./router/index');
 const routerPay = require('./router/pay');
+const routerSearch = require('./router/search');
 const path = require("path");
 const fs = require("fs");
 
@@ -34,6 +35,7 @@ app.use(cors({
 }));
 app.use('/api', router);
 app.use('/pay', routerPay);
+app.use('/search', routerSearch);
 app.use(ID);
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

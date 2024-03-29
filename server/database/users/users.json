@@ -11,13 +11,7 @@
         "activationLink": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudGFsa29uNzg5QGdtYWlsLmNvbSIsImlhdCI6MTcxMTU0MzkwNCwiZXhwIjoxNzExNTQ2NjA0fQ.3B7K2RbMyKRVxpQ6k4VbLNN_VHXGiEULOnH2ogGUFuo",
         "isActivated": true,
         "tempCode": null,
-        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE2MjI4MjEsImV4cCI6MTcxMTYyMzcyMX0.SaCfE8p6zGU6PQZUmwu0Gt8Q9AcjSau4mS0lo_YTtOo",
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ2bmY0dG9tOGJyNXRyb3ppIiwiaWF0IjoxNzExNjIyODIxLCJleHAiOjE3MTE3MDkyMjF9.rC74wHFB9JAWe3kRI7VsR_hne6lxDPeIpSRVFPN3yW8"
-    },
-    {
-        "UserId": "hrr27dvj3zch5tcs",
-        "DislayId": "24569629",
-        "activationLink": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE1NDg3MjMsImV4cCI6MTcxMTU1MTQyM30.YmUDVMHfg7fV2fMgUaC00EEYJUOTb8v4sJo8VhRjOyw",
-        "isActivated": false
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE3MjQxNTgsImV4cCI6MTcxMTcyNTA1OH0.zBtaqNAHvsp26ckEGfptsxzuGBZwsNLw4byz0vMkjJM",
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ2bmY0dG9tOGJyNXRyb3ppIiwiaWF0IjoxNzExNzI0MTU4LCJleHAiOjE3MTE4MTA1NTh9.Pr7Li20zH03A6pjsGyYD1r_zEI68G2fZiEx4Kd6P7JQ"
     }
 ]
