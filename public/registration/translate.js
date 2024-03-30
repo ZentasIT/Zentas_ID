@@ -75,5 +75,6 @@ function resize_loggined() {
         main.style.maxHeight = '213px';
 
     }, 300); // Перемещение setTimeout после аргумента функции
+    location.replace('/')
 }
 
