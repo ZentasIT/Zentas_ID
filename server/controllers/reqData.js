@@ -87,7 +87,7 @@ class request{
                 }
                 const currentDate = getCurrentDate();
                 console.log(currentDate)
-                if (currentDate > prousr.ExpDate) {
+                if (currentDate >= prousr.ExpDate) {
                     console.log('Подписка истекла')
                     return res.status(400).json({ message: 'Подписка истекла' });
                 } else {
@@ -107,6 +107,66 @@ class request{
             return res.status(500).json({ message: 'Произошла ошибка при обработке запроса.' });
         }
     }
+    async education(req, res, next) {
+        try {
+            if (req.body && req.body.reqdat) {
+                const token = req.body.reqdat;
+                const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+                if (!decodedToken.userId) return res.status(500).json({ message: 'Неверный токен.' });
+                let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+                const user = users.find(user => user.UserId === decodedToken.userId);
+                const fileEdu = path.join(__dirname, '..', 'database', 'school', 'school.json');
+                let pros = JSON.parse(fs.readFileSync(fileEdu, 'utf8'))
+                const scusr = pros.find(user => user.UserId === decodedToken.userId);
+                if (!scusr) return res.status(400).json({ message: 'error' })
+                console.log("UserDetected!")
+                const resData = {
+                    schoolName: scusr.schoolName,
+                    schoolAddress: scusr.schoolAddress,
+                    schoolId: scusr.schoolId,
+                }
+                return res.status(200).json(resData);
+            } else if (req.body && req.body.joinToSchool) {
+                console.log('++')
+                const token = req.body.joinToSchool;
+                const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+                if (!decodedToken.userId) return res.status(500).json({ message: 'Неверный токен.' });
+                let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+                const user = users.find(user => user.UserId === decodedToken.userId);
+                const fileEdu = path.join(__dirname, '..', 'database', 'school', 'school.json');
+                let pros = JSON.parse(fs.readFileSync(fileEdu, 'utf8'))
+                const scusr = pros.find(user => user.UserId === decodedToken.userId);
+                if (!scusr) {
+                    console.log('error')
+                    const schoolBase = path.join(__dirname, '..', 'database', 'school', 'schoolBase.json');
+                    let base = JSON.parse(fs.readFileSync(schoolBase, 'utf8'))
+                    const search = base.find(base => base.schoolId === req.body.SchoolId);
+                    if (!search) return res.status(400).json({ message: 'error' })
+                    const addData = {
+                        UserId: decodedToken.userId,
+                        schoolId: search.schoolId,
+                        schoolName: search.schoolName,
+                        schoolAddress: search.schoolAddress,
+                        schoolVerify: "false"
+                    }
+                    pros.push(addData);
+                    fs.writeFileSync(fileEdu, JSON.stringify(pros, null, 4));
+
+                    return res.status(200).json({ schoolName: search.schoolName });
+                }
+                if(user){
+                    return res.status(500).json({message: "Пользователь уже привязан к ОУ"})
+                }
+                console.log("UserDetected!")
+            } else if (req.body && req.body.getVerefyList){
+                const fileEdu = path.join(__dirname, '..', 'database', 'school', 'school.json');
+                let pros = JSON.parse(fs.readFileSync(fileEdu, 'utf8'))
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
+
 
 }
 module.exports = new request();

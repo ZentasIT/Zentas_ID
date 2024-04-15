@@ -216,7 +216,17 @@ class UserController{
         }
     }
 
-    async
+    async logout(req, res, next) {
+        try{
+            res.clearCookie('refreshToken');
+            res.clearCookie('accessToken');
+            res.redirect('/main');
+        }
+        catch (err){
+            next(err);
+        }
+
+    }
 
 }
 module.exports = new UserController();
