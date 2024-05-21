@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -54,9 +53,8 @@ class UserController {
     async registration(req, res, next) {
         try {
             const { name, family, otchestvo, rdate, number, email, password } = req.body;
-            const hashedPassword = await bcrypt.hash(password, 10);
             const activationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
-            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8), firstName: name, lastName: family, middleName: otchestvo, Date: rdate, phone: number, email, password: hashedPassword, activationLink: activationToken, isActivated: false };
+            const newUser = { UserId: generateUUID(16), DislayId: generateNumUUID(8), firstName: name, lastName: family, middleName: otchestvo, Date: rdate, phone: number, email, password: null, activationLink: activationToken, isActivated: false };
             const usersFilePath = path.join(__dirname, '..', 'database', 'users', 'users.json');
             const templateFolderPath = path.join(__dirname, '..', 'database', 'uFolders', 'template');
             const userFolderName = newUser.UserId;
